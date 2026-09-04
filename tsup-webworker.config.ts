@@ -8,9 +8,17 @@ export default defineConfig({
   outDir: "dist/webworker",
   splitting: false,
   minify: false,
+  // The worker runs in a browser with no node_modules, so anything inlined here
+  // must bring its own dependencies with it. circuit-json imports
+  // format-si-unit, so inlining circuit-json alone left 24 bare
+  // `from "format-si-unit"` specifiers in the bundle and the worker died on
+  // load with `Module name, 'format-si-unit' does not resolve to a valid URL`
+  // -- which surfaces as every view rendering nothing, since no circuit is ever
+  // produced.
   noExternal: [
     "@tscircuit/core",
     "circuit-json",
+    "format-si-unit",
     "@tscircuit/parts-engine",
     "@tscircuit/fabricator-drc",
     "sucrase",
