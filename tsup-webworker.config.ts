@@ -17,6 +17,10 @@ export default defineConfig({
   // produced.
   noExternal: [
     "@tscircuit/core",
+    "@tscircuit/jscad-assembly-hardware",
+    "@tscircuit/modelprinter",
+    "jscad-planner",
+    "gl-matrix",
     "circuit-json",
     "format-si-unit",
     "@tscircuit/parts-engine",
